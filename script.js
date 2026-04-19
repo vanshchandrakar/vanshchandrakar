@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 const elements = document.querySelectorAll(".fade");
+
 elements.forEach((el, i) => {
 setTimeout(() => {
 el.classList.add("show");
-}, 150 + (i * 150));
+}, 150 + i * 150);
 });
 
+/* DARK MODE TOGGLE (with persistence) */
 const toggle = document.getElementById("toggle");
 
 if (localStorage.getItem("theme") === "light") {
