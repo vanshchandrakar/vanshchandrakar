@@ -1,14 +1,8 @@
 :root{
---bg:#0d0d0d;
+--bg:#0a0a0a;
 --text:#eaeaea;
 --accent:#c5a46d;
---border:#222;
-}
-
-body.light{
---bg:#f5f5f5;
---text:#111;
---border:#ddd;
+--muted:#999;
 }
 
 body{
@@ -16,44 +10,92 @@ margin:0;
 font-family:'Roboto',sans-serif;
 background:var(--bg);
 color:var(--text);
-transition:0.3s;
+overflow-x:hidden;
 }
 
+/* BACKGROUND SYSTEM */
+.bg-grid{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-4;
+}
+
+.bg-glow{
+position:fixed;
+top:-200px;right:-200px;
+width:500px;height:500px;
+background: radial-gradient(circle, rgba(197,164,109,0.15), transparent 70%);
+filter:blur(60px);
+z-index:-3;
+}
+
+/* MARBLE TEXTURE */
+.marble-overlay{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:url('https://www.transparenttextures.com/patterns/marble.png');
+opacity:0.06;
+mix-blend-mode:overlay;
+z-index:-2;
+}
+
+/* ROMAN STATUE */
+.statue-overlay{
+position:fixed;
+bottom:0;
+right:0;
+width:400px;
+height:90vh;
+background:url('https://upload.wikimedia.org/wikipedia/commons/8/8c/Apollo_Belvedere.jpg') no-repeat right bottom;
+background-size:contain;
+opacity:0.08;
+filter:grayscale(100%) contrast(120%);
+z-index:-1;
+pointer-events:none;
+}
+
+/* NAV */
 .navbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:1rem 2rem;
-border-bottom:1px solid var(--border);
+padding:1.2rem 2rem;
+backdrop-filter: blur(8px);
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 .logo{
 font-weight:700;
-letter-spacing:2px;
+letter-spacing:3px;
 }
 
 .nav-links{
-list-style:none;
 display:flex;
-gap:20px;
+gap:24px;
+list-style:none;
 padding:0;
 margin:0;
 }
 
 .nav-links a{
-text-decoration:none;
 color:var(--text);
+text-decoration:none;
 position:relative;
+font-size:0.95rem;
 }
 
 .nav-links a::after{
 content:"";
 position:absolute;
-width:0;
-height:1px;
+width:0;height:1px;
 background:var(--accent);
-left:0;
-bottom:-4px;
+bottom:-4px;left:0;
 transition:0.3s;
 }
 
@@ -61,41 +103,51 @@ transition:0.3s;
 width:100%;
 }
 
+/* HERO */
 .hero{
-height:90vh;
+height:92vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:1rem;
+padding:20px;
 }
 
 .hero h1{
-font-size:2.5rem;
-margin-bottom:10px;
+font-size:3rem;
+letter-spacing:1px;
 }
 
+.hero p{
+color:var(--muted);
+max-width:500px;
+}
+
+/* BUTTON */
 .btn{
-padding:10px 22px;
+padding:12px 26px;
 border:1px solid var(--accent);
 color:var(--accent);
 text-decoration:none;
-margin-top:20px;
+margin-top:25px;
 transition:0.3s;
 }
 
 .btn:hover{
 background:var(--accent);
 color:#000;
+box-shadow:0 0 20px rgba(197,164,109,0.3);
 }
 
+/* CONTENT */
 .content{
 max-width:800px;
 margin:auto;
-padding:2rem;
+padding:3rem 1.5rem;
 }
 
+/* CARDS */
 .cards{
 display:flex;
 flex-direction:column;
@@ -103,17 +155,20 @@ gap:20px;
 }
 
 .card{
-border:1px solid var(--border);
 padding:20px;
+border:1px solid rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.02);
+backdrop-filter:blur(6px);
 transition:0.3s;
 }
 
 .card:hover{
+transform:translateY(-6px);
 border-color:var(--accent);
-transform:translateY(-4px);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* animations */
+/* ANIMATIONS */
 .fade{
 opacity:0;
 transform:translateY(20px);
@@ -129,8 +184,15 @@ transition:0.8s ease;
 .delay2{transition-delay:0.4s;}
 .delay3{transition-delay:0.6s;}
 
-/* mobile */
+/* RESPONSIVE */
+@media(max-width:768px){
+.statue-overlay{
+opacity:0.04;
+width:250px;
+}
+}
+
 @media(min-width:768px){
-.hero h1{font-size:3.5rem;}
+.hero h1{font-size:4rem;}
 .cards{flex-direction:row;}
 }
